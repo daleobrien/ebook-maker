@@ -92,7 +92,7 @@ class Ebook(object):
                                        ('The Light of Ancient Mistakes', 'more content...\n etc'),
                                        ('Winter Storm','Lots of text\nAnother line ...\nthird line')]
 
-            >>> create_ebook_from_dictionary( ebook) 
+            >>> book.save()
 
             would create a 'Banks, Iain M. - Look to windward.epub' in the folder 'ebooks'
 
