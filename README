@@ -8,9 +8,9 @@ e.g.
 >>> book = Ebook( output_folder = 'ebooks')
 >>>
 >>> book.isbn     = '0743421922'
->>> book.chapters =  Ä('Prologue','Some content ...'),
-...                   ('The Light of Ancient Mistakes', 'more content...ön<i>etc</i>'),
-...                   ('Winter Storm','Lots of textönAnother <b>line</b>...önthird lineönfourth line')Å
+>>> book.chapters =  [('Prologue','Some content ...'),
+...                   ('The Light of Ancient Mistakes', 'more content\n<i>etc</i>'),
+...                   ('Winter Storm','Lots of text\nAnother <b>line</b>\nthird line\nfourth line')]
 >>>
 >>> book.cover_art      = 'test/cover.jpg'
 >>> book.primary_author = 'Banks, Iain M.'
@@ -20,5 +20,5 @@ e.g.
 
 
 This will then create a book in the folder "ebooks" called "Banks, Iain M. - Look to windward.epub", 
-provide the folder "ebooks" exists.
+provided the folder "ebooks" exists.
 
