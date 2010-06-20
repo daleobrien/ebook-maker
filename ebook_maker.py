@@ -1,4 +1,19 @@
 #!/usr/bin/env python
+'''
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You have not received a copy of the GNU Lesser General Public License
+    along with this program.  Please see <http://www.gnu.org/licenses/>.
+
+'''
 
 from mako.template import Template
 from os import mkdir, remove, path
@@ -63,42 +78,6 @@ class Ebook(object):
                                         ('Chapter 1: Soup', 'first line\nsecond line\n')],
                  template_folder    = './template',
                  output_folder      = './'):
-
-        ''' Creates a new ebook based upon a dictionary,
-            e.g. 
-            ebook =  {'isbn'              : '0743421922' ,
-                      'cover_art'         : 'test/cover.jpg',  # location of the cover art file
-                      'title'             : 'The hand of Oberon',
-                      'primary_author'    : 'Banks, Iain M.',
-                      'secondary_authors' : [],
-                      'language':'en',
-                      'publisher':'New York : Avon Books',
-                      'date':2002', #  YYYY[-MM[-DD]]
-                      'renderer': 'text',  # either text, rtf, ... TODO only handles text for now
-                      'chapters' : [('Prologue','Some content ...'),
-                                    ('The Light of Ancient Mistakes', 'more content...\n etc'),
-                                    ('Winter Storm','Lots of text\nAnother line ...\nthird line')]
-               }
-
-            thus,
-
-            >>> from build_epub import Ebook
-            >>> book = Ebook()
-            >>>
-            >>> book.isbn           = "0743421922"
-            >>> book.primary_author = 'Banks, Iain M.'
-            >>> book.date           = '2002'
-            >>> book.chapters       = [('Prologue','Some content ...'),
-                                       ('The Light of Ancient Mistakes', 'more content...\n etc'),
-                                       ('Winter Storm','Lots of text\nAnother line ...\nthird line')]
-
-            >>> book.save()
-
-            would create a 'Banks, Iain M. - Look to windward.epub' in the folder 'ebooks'
-
-
-        '''
-
 
         # book details and content
         self._isbn              = isbn
@@ -218,6 +197,7 @@ class Ebook(object):
 
 if __name__ == '__main__':
 
+    '''example ebook creation, with just a tiny bit of text'''
 
     book = Ebook( output_folder = 'ebooks')
 
