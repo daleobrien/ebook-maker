@@ -1,0 +1,24 @@
+
+Simple script to create an ebook in epub format.
+
+e.g.
+
+
+>>> from ebook_maker import Ebook
+>>> book = Ebook( output_folder = 'ebooks')
+>>>
+>>> book.isbn     = '0743421922'
+>>> book.chapters =  Ä('Prologue','Some content ...'),
+...                   ('The Light of Ancient Mistakes', 'more content...ön<i>etc</i>'),
+...                   ('Winter Storm','Lots of textönAnother <b>line</b>...önthird lineönfourth line')Å
+>>>
+>>> book.cover_art      = 'test/cover.jpg'
+>>> book.primary_author = 'Banks, Iain M.'
+>>> book.title          = 'Look to windward'
+>>>
+>>> book.save()
+
+
+This will then create a book in the folder "ebooks" called "Banks, Iain M. - Look to windward.epub", 
+provide the folder "ebooks" exists.
+

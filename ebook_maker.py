@@ -160,7 +160,7 @@ class Ebook(object):
     def save(self, overrided_name=None):
 
         if not path.exists(self._output_folder):
-            raise Exception, "Folder [%s] doesn't exisit"%output_folder
+            raise Exception, "Folder [%s] doesn't exisit"%self._output_folder
 
         # book file name
         epub_filename = path.join(self._output_folder,
