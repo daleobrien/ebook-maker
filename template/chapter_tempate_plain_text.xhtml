@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>${title}</title>
+    <meta content="http://www.w3.org/1999/xhtml; charset=utf-8" http-equiv="Content-Type" />
+    <link href="stylesheet.css" type="text/css" rel="stylesheet" />
+    <style type="text/css">@page { margin-bottom: 5.0; margin-top: 5.0; }</style>
+  </head>
+  <body>
+  <p class="CHAPTER_HEADING">${title}</p>
+% for line in content.splitlines():
+  <p class="T0">${line}</p>
+% endfor
+  </body>
+</html>

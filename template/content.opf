@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
+ 
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>${title}</dc:title>
+    <dc:language>${language}</dc:language>
+    <dc:identifier id="BookId" opf:scheme="ISBN">${isbn}</dc:identifier>
+    <dc:creator opf:file-as="${primary_author}" opf:role="aut">${primary_author.split(', ')[1]} ${primary_author.split(', ')[0]}</dc:creator>
+% for author in secondary_authors:
+    <dc:contributor opf:file-as="${author}" opf:role="aut">${author.split(', ')[1]} ${author.split(', ')[0]}</dc:contributor>
+% endfor
+    <dc:date>${date}</dc:date>
+    <dc:publisher>${publisher}</dc:publisher>
+  </metadata>
+ 
+  <manifest>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+% if cover_art is not None:
+    <item href="cover.jpg" id="cover" media-type="image/jpeg"/>
+% endif
+
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+
+% for i in range(len(chapters) ):
+    <item href="${'chapter_%03d.xhtml'%i}" id="${'id%03d'%i}" media-type="application/xhtml+xml"/>
+% endfor
+
+    <item href="toc.ncx" media-type="application/x-dtbncx+xml" id="ncx"/>
+  </manifest>
+ 
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+% for i in range(len(chapters) ):
+    <itemref idref="${'id%03d'%i}"/>
+% endfor
+  </spine>
+ 
+  <guide>
+    <reference href="titlepage.xhtml" type="cover" title="Cover"/>
+  </guide>
+ 
+</package>
+

@@ -1,0 +1,30 @@
+@namespace h "http://www.w3.org/1999/xhtml";
+.CHAPTER_HEADING {
+    background-color: #fff;
+    display: block;
+    font-family: "Times New Roman", serif;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.1in;
+    text-align: justify;
+    text-indent: 0.2in
+    }
+.T0 {
+    background-color: #fff;
+    display: block;
+    font-family: "Times New Roman", serif;
+    font-size: 1em;
+    margin-bottom: 0.1in;
+    text-align: justify;
+    text-indent: 0.1in
+    }
+a {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: default
+    }
+a[href] {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer
+    }
