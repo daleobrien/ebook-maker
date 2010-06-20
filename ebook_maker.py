@@ -207,7 +207,7 @@ class Ebook(object):
 
             xml = None
             if self._renderer == 'text':
-                xml = Template( filename=path.join(self._template_folder,'chapter_tempate_plain_text.xhtml')).render(title=chapter[0],
+                xml = Template( filename=path.join(self._template_folder,'chapter_template_plain_text.xhtml')).render(title=chapter[0],
                                                                                                            content=chapter[1])
             elif self._renderer == 'rtf':
                 raise Exception,"don't have a template for rtf !"
