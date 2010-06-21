@@ -21,16 +21,7 @@ from shutil import copytree, copyfile,rmtree
 from cStringIO import StringIO
 from tempfile import mkstemp
 from zipfile import ZipFile,  ZIP_DEFLATED
-
-def prop(func):
-    '''see http://code.activestate.com/recipes/576742/ '''
-    ops = func() or {}
-    name=ops.get('prefix','_')+func.__name__ # property name
-    fget=ops.get('fget',lambda self:getattr(self, name))
-    fset=ops.get('fset',lambda self,value:setattr(self,name,value))
-    fdel=ops.get('fdel',lambda self:delattr(self,name))
-    return property ( fget, fset, fdel, ops.get('doc','') )
-    
+import time
 
 class Epub(ZipFile):
 
@@ -61,125 +52,64 @@ class Epub(ZipFile):
 
 class Ebook(object):
 
-    def __init__(self,
-                 isbn               = '0123456789',
-                 cover_art          = None,
-                 title              = "The Book Title",
-                 primary_author     = 'Blogs, Joe',
-                 secondary_authors  = [],
-                 language           = "en",
-                 publisher          = "some publisher",
-                 date               = '2010',
-                 renderer           = 'text',
-                 chapters           =  [('Prologue','Some content ...'),
-                                        ('Chapter 1: Soup', 'first line\nsecond line\n')],
-                 template_folder    = './template',
-                 output_folder      = './'):
+    __slots__ = ['isbn', 'cover_art', 'title','primary_author',
+                 'secondary_authors', 'language','publisher',
+                 'date','renderer','chapters','template_folder',
+                 'output_folder']
 
-        # book details and content
-        self._isbn              = isbn
-        self._cover_art         = cover_art
-        self._title             = title
-        self._primary_author    = primary_author
-        self._secondary_authors = secondary_authors
-        self._language          = language
-        self._publisher         = publisher
-        self._date              = date
-        self._renderer          = renderer
-        self._chapters          = chapters
+    def __init__(self):
 
-        # envirnoment details
-        self._template_folder   = template_folder
-        self._output_folder     = output_folder
-
-    @prop
-    def isbn(): pass
-
-    @prop
-    def cover_art(): pass
-
-    @prop
-    def title(): pass
-
-    @prop
-    def primary_author(): pass
-
-    @prop
-    def secondary_authors(): pass
-
-    @prop
-    def language(): pass
-
-    @prop
-    def publisher(): pass
-
-    @prop
-    def date(): pass
-
-    @prop
-    def renderer(): pass
-
-    @prop
-    def chapters():
-        '''e.g.  chapters = [('Prologue','Some content ...'),
-                             ('Chapter 1: Soup', 'first line\nsecond line\n')]
-        '''
-        pass
-
-    @prop
-    def template_folder(): pass
-
-    @prop
-    def output_folder(): pass
-
+        self.isbn              = '0123456789' 
+        self.primary_author    = "Anonymous"
+        self.secondary_authors = []
+        self.template_folder   = 'template'
+        self.language          = 'en'
+        self.publisher         = "None"
+        self.renderer          = 'text'
+        self.date              = time.asctime()
+        self.output_folder     = "./"
 
     def save(self, overrided_name=None):
 
-        if not path.exists(self._output_folder):
-            raise Exception, "Folder [%s] doesn't exisit"%self._output_folder
+        if not path.exists(self.output_folder):
+            raise Exception, "Folder [%s] doesn't exisit"%self.output_folder
 
         # book file name
-        epub_filename = path.join(self._output_folder,
-                                     "%s - %s.epub" %(self._primary_author ,
-                                                      self._title))
+        epub_filename = path.join(self.output_folder,
+                                     "%s - %s.epub" %(self.primary_author ,
+                                                      self.title))
 
         # create the ebook
         epub_book = Epub(epub_filename,'w', ZIP_DEFLATED)
 
         # add cover art to the book
-        if self._cover_art is not None:
-            epub_book.write(self._cover_art, arcname='cover.jpg')
+        if self.cover_art is not None:
+            epub_book.write(self.cover_art, arcname='cover.jpg')
 
         # add varous meta files, that describe the book
         for filename in ['stylesheet.css', 'mimetype', 'titlepage.xhtml' ,'META-INF/container.xml']:
-            src = path.join(self._template_folder, filename)
+            src = path.join(self.template_folder, filename)
             epub_book.write(src, arcname=filename )
 
         # build the main content files
-        __book = {'isbn':self._isbn,
-                  'title':self._title,
-                  'primary_author':self._primary_author,
-                  'secondary_authors':self._secondary_authors,
-                  'language':self._language,
-                  'publisher':self._publisher,
-                  'date':self._date,
-                  'cover_art':self._cover_art,
-                  'chapters':self._chapters
-                }
+        book = {}
+        for arg in self.__slots__:
+            book[arg] = getattr(self,arg)
 
         for template in ['content.opf', 'toc.ncx']:
-            template_file = path.join(self._template_folder,template)
-            xml_content =  Template( filename=template_file).render(**__book)
+            template_file = path.join(self.template_folder,template)
+            xml_content =  Template( filename=template_file).render(**book)
             epub_book.writecontent(template, xml_content)
 
         # add the content of each chapter
-        for i,chapter in enumerate(self._chapters):
+        for i,chapter in enumerate(self.chapters):
 
             xml = None
-            if self._renderer == 'text':
-                xml = Template( filename=path.join(self._template_folder,'chapter_template_plain_text.xhtml')).render(title=chapter[0],
-                                                                                                           content=chapter[1])
-            elif self._renderer == 'rtf':
+            if self.renderer == 'text':
+                filename = path.join(self.template_folder,'chapter_template_plain_text.xhtml')
+                xml = Template( filename=filename).render(title=chapter[0],
+                                                          content=chapter[1])
+            elif self.renderer == 'rtf':
                 raise Exception,"don't have a template for rtf !"
 
             if xml is not None:
@@ -190,7 +120,10 @@ if __name__ == '__main__':
 
     '''example ebook creation, with just a tiny bit of text'''
 
-    book = Ebook( output_folder = 'ebooks')
+    book = Ebook()
+
+    book.output_folder   = '../ebooks'
+    book.template_folder = 'template'
 
     book.isbn     = '0743421922'
     book.chapters =  [('Prologue','Some content ...'),
