@@ -1,10 +1,14 @@
+## ebook-maker
 
 Simple script to create an ebook in epub format.
 
-e.g.
+### Dependencies
 
+[Mako](http://www.makotemplates.org/) , which is used for templating. 
 
->>> from ebook_maker import Ebook
+### Usage
+
+`>>> from ebook_maker import Ebook
 >>> book = Ebook( output_folder = 'ebooks')
 >>>
 >>> book.isbn     = '0743421922'
@@ -16,8 +20,7 @@ e.g.
 >>> book.primary_author = 'Banks, Iain M.'
 >>> book.title          = 'Look to windward'
 >>>
->>> book.save()
-
+>>> book.save()`
 
 This will then create a book in the folder "ebooks" called "Banks, Iain M. - Look to windward.epub", 
 provided the folder "ebooks" exists.
