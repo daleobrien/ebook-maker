@@ -20,10 +20,7 @@ from os import mkdir, remove, path
 from shutil import copytree, copyfile,rmtree
 from cStringIO import StringIO
 from tempfile import mkstemp
-
 from zipfile import ZipFile,  ZIP_DEFLATED
-
-#from PIL import Image
 
 def prop(func):
     '''see http://code.activestate.com/recipes/576742/ '''
@@ -151,12 +148,6 @@ class Ebook(object):
 
         # add cover art to the book
         if self._cover_art is not None:
-            # convert to greyscale
-            #handle,temp_filename = mkstemp(suffix='.jpg')
-            #im = Image.open(self._cover_art).convert("L")
-            #im.save(temp_filename)
-            #epub_book.write(temp_filename, arcname='cover.jpg')
-            #remove(temp_filename)
             epub_book.write(self._cover_art, arcname='cover.jpg')
 
         # add varous meta files, that describe the book
