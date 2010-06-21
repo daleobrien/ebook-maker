@@ -22,6 +22,6 @@ Simple script to create an ebook in epub format.
               
               book.save()
 
-This will then create a book in the folder *ebooks* called *Banks, Iain M. - Look to windward.epub*, 
-provided the folder *ebooks* exists.
+This will then create a book in the folder **ebooks** called **Banks, Iain M. - Look to windward.epub**, 
+provided the folder **ebooks** exists.
 
