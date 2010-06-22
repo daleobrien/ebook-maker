@@ -115,8 +115,9 @@ class Ebook(object):
             if xml is not None:
                 epub_book.writecontent('chapter_%03d.xhtml'%i,xml)
 
-
 if __name__ == '__main__':
+
+    # TODO are command line options
 
     '''example ebook creation, with just a tiny bit of text'''
 
