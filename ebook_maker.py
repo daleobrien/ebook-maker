@@ -62,7 +62,7 @@ class Ebook(object):
         self.isbn              = '0123456789' 
         self.primary_author    = "Anonymous"
         self.secondary_authors = []
-        self.template_folder   = 'template'
+        self.template_folder   = path.join( path.split(__file__)[0],'template')
         self.language          = 'en'
         self.publisher         = "None"
         self.renderer          = 'text'
@@ -98,7 +98,9 @@ class Ebook(object):
 
         for template in ['content.opf', 'toc.ncx']:
             template_file = path.join(self.template_folder,template)
-            xml_content =  Template( filename=template_file).render(**book)
+            xml_content =  Template(filename=template_file,
+                                    default_filters=['decode.utf8'],
+                                    input_encoding='utf-8').render(**book)
             epub_book.writecontent(template, xml_content)
 
         # add the content of each chapter
@@ -107,8 +109,10 @@ class Ebook(object):
             xml = None
             if self.renderer == 'text':
                 filename = path.join(self.template_folder,'chapter_template_plain_text.xhtml')
-                xml = Template( filename=filename).render(title=chapter[0],
-                                                          content=chapter[1])
+                xml = Template(filename=filename,
+                               default_filters=['decode.utf8'],
+                               input_encoding='utf-8').render(title=chapter[0],
+                                                              content=chapter[1])
             elif self.renderer == 'rtf':
                 raise Exception,"don't have a template for rtf !"
 
@@ -124,7 +128,6 @@ if __name__ == '__main__':
     book = Ebook()
 
     book.output_folder   = '../ebooks'
-    book.template_folder = 'template'
 
     book.isbn     = '0743421922'
     book.chapters =  [('Prologue','Some content ...'),
