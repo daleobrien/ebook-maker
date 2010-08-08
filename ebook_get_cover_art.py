@@ -20,7 +20,7 @@ import urllib,os
 def retrive_cover( isbn, save_folder='covers' ):
     '''Retreve a book cover using openlibrary, e.g.
 
-    >> retrive( '0743421922', 'images')
+    >> retrive_cover( '0743421922', 'images')
 
     will result in the following file,
 
