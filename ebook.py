@@ -8,8 +8,8 @@ along with this program.  Please see <http://www.gnu.org/licenses/>.
 Simple script to create an ebook in epub format.
 
 This program will scan a directory of sub-folders, where each sub-folder
-resprents a book.  Within each sub-folder, there should be a series of text files for each
-chapter.  For example:
+resprents a book.  Within each sub-folder, there should be a series of text
+files for each chapter.  For example:
 
     Book Title - Last Name, First Name.text
       chapter 1 - Introduction.text
@@ -29,7 +29,7 @@ Running example will generate an example source file to get one started.
 
     Options:
         -h --help           Print this screen
-        -f --format FORMAT  Ebook format [default: epub], only one option for now
+        -f --format FORMAT  Ebook format [default: epub], (the only option)
 
 '''
 
