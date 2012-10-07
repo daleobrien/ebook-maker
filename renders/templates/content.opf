@@ -5,9 +5,9 @@
     <dc:title>${title}</dc:title>
     <dc:language>${language}</dc:language>
     <dc:identifier id="BookId" opf:scheme="ISBN">${isbn}</dc:identifier>
-    <dc:creator opf:file-as="${primary_author}" opf:role="aut">${primary_author.split(', ')[1]} ${primary_author.split(', ')[0]}</dc:creator>
+    <dc:creator opf:file-as="${primary_author}" opf:role="aut">${primary_author}</dc:creator>
 % for author in secondary_authors:
-    <dc:contributor opf:file-as="${author}" opf:role="aut">${author.split(', ')[1]} ${author.split(', ')[0]}</dc:contributor>
+    <dc:contributor opf:file-as="${author}" opf:role="aut">${author}</dc:contributor>
 % endfor
     <dc:date>${date}</dc:date>
     <dc:publisher>${publisher}</dc:publisher>
