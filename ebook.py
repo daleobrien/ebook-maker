@@ -2,43 +2,34 @@
 # -*- coding: utf-8 -*-
 
 '''
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
 You have not received a copy of the GNU Lesser General Public License
 along with this program.  Please see <http://www.gnu.org/licenses/>.
 
-ebook
+Simple script to create an ebook in epub format.
 
-    This program will scan a directory of sub-folders, where each sub-folder
-    resprents a book.  The name of the sub-folder name should be of the form:
+This program will scan a directory of sub-folders, where each sub-folder
+resprents a book.  Within each sub-folder, there should be a series of text files for each
+chapter.  For example:
 
-       "Title - Last Name, First Name.text"
+    Book Title - Last Name, First Name.text
+      chapter 1 - Introduction.text
+      chapter 2 - More about ebooks.text
+      ...
 
-    Within each sub-folder, there should be a series of text files for each
-    chapter.  The name of each should be of the form:
-        "chapter 1 - title.text"
+Each chapter should just be a plain text.  It can have some limited html
+markup, such as bold <b>, italic <i> e.t.c.
 
-    Each chapter should just be a plain text.  It can have some limited html
-    markup, such as bold <b>, italic <i> e.t.c.
+Running example will generate an example source file to get one started.
 
-    Running example will generate an example source file to get one started.
+    Usage:
+        ebook -h
+        ebook scan TEXT_SOURCE_FOLDER EBOOK_DESTINATION_FOLDER [-f FORMAT]
+        ebook example TEXT_SOURCE_FOLDER EBOOK_DESTINATION_FOLDER
+        ebook license
 
-Usage:
-    ebook -h
-    ebook scan TEXT_SOURCE_FOLDER EBOOK_DESTINATION_FOLDER [-f FORMAT]
-    ebook example TEXT_SOURCE_FOLDER EBOOK_DESTINATION_FOLDER
-
-Options:
-    -h --help           Print this screen
-    -f --format FORMAT  Ebook format [default: epub], only one option for now
+    Options:
+        -h --help           Print this screen
+        -f --format FORMAT  Ebook format [default: epub], only one option for now
 
 '''
 
@@ -153,6 +144,19 @@ if __name__ == '__main__':
     '''example ebook creation, scanning a folder'''
     if arguments['scan']:
         scan_folder_for_books(arguments)
+
+    if arguments['license']:
+        l = "\nThis program is free software: you can redistribute it "\
+            "and/or modify\nit under the terms of the GNU Lesser General "\
+            "Public License as published by\nthe Free Software Foundation, "\
+            "either version 3 of the License, or\n(at your option) any "\
+            "later version.\n\nThis program is distributed in the hope that "\
+            "it will be useful,\nbut WITHOUT ANY WARRANTY; without even the "\
+            "implied warranty of\nMERCHANTABILITY or FITNESS FOR A "\
+            "PARTICULAR PURPOSE.  See the\nGNU Lesser General Public "\
+            "License for more details.\n"
+        print l
+        exit(0)
 
     '''Creating a book programically'''
     if arguments['example']:
