@@ -4,7 +4,7 @@ Simple script to create an ebook in epub format.
 
 This program will scan a directory of sub-folders, where each sub-folder
 resprents a book.  Within each sub-folder, there should be a series of text files for each
-chapter.  For example:
+chapter.  For example the folder structure should look like this:
 
     Book Title - Last Name, First Name.text
       chapter 1 - Introduction.text
@@ -29,7 +29,6 @@ Running example will generate an example source file to get one started.
 
 ### Dependencies
 
+To install the dependencies run
 
-[Mako](http://www.makotemplates.org/) , which is used for templating. 
-
-[docopt](https://github.com/docopt/docopt), which is used for command line options
+    pip install mako docopt
